@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Registration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #07090d;
+            --bg-panel: #111722;
+            --bg-panel-soft: #171f2c;
+            --line: rgba(255, 255, 255, 0.1);
+            --line-strong: rgba(255, 255, 255, 0.18);
+            --text-main: #ffffff;
+            --text-muted: #a9b3c4;
+            --green: #4df42d;
+            --green-dark: #179a35;
+            --red: #ff3f55;
+            --gold: #ffd15c;
+            --blue: #4aa3ff;
+            --shadow-green: rgba(77, 244, 45, 0.34);
+            --shadow-red: rgba(255, 63, 85, 0.28);
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-width: 320px;
+            margin: 0;
+            background:
+                radial-gradient(circle at 18% 0%, rgba(77, 244, 45, 0.11), transparent 28rem),
+                radial-gradient(circle at 90% 20%, rgba(74, 163, 255, 0.12), transparent 24rem),
+                linear-gradient(180deg, #080b11 0%, var(--bg-main) 44%, #050609 100%);
+            color: var(--text-main);
+            font-family: "Inter", Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        button,
+        a {
+            touch-action: manipulation;
+        }
+
+        .site-shell {
+            min-height: 100vh;
+        }
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.94);
+            border-bottom: 1px solid var(--line);
+            backdrop-filter: blur(14px);
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: min(100%, 1040px);
+            min-height: 70px;
+            margin: 0 auto;
+            padding: 10px 18px;
+        }
+
+        .brand-link {
+            display: inline-flex;
+            align-items: center;
+            min-width: 0;
+            text-decoration: none;
+        }
+
+        .brand-logo {
+            width: min(260px, 56vw);
+            height: 48px;
+            object-fit: contain;
+            object-position: left center;
+        }
+
+        .social-links {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex: 0 0 auto;
+        }
+
+        .social-link {
+            display: grid;
+            place-items: center;
+            width: 48px;
+            height: 48px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            text-decoration: none;
+            transition: transform 180ms ease, filter 180ms ease, border-color 180ms ease;
+        }
+
+        .social-link:hover {
+            border-color: rgba(255, 255, 255, 0.28);
+            filter: brightness(1.08);
+            transform: translateY(-1px);
+        }
+
+        .social-link:active {
+            transform: scale(0.96);
+        }
+
+        .social-link svg {
+            display: block;
+            width: 36px;
+            height: 36px;
+        }
+
+        .app-container {
+            width: min(100%, 680px);
+            margin: 0 auto;
+            padding: 20px 16px 54px;
+        }
+
+        .hero-panel {
+            display: grid;
+            gap: 16px;
+        }
+
+        .offer-card {
+            position: relative;
+            display: grid;
+            grid-template-columns: minmax(150px, 190px) minmax(0, 1fr);
+            gap: 16px;
+            align-items: stretch;
+            padding: 12px;
+            border: 1px solid rgba(74, 163, 255, 0.26);
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(20, 29, 45, 0.96), rgba(10, 12, 18, 0.98));
+            box-shadow: 0 22px 58px rgba(0, 0, 0, 0.36);
+        }
+
+        .offer-image-link {
+            display: block;
+            border-radius: 14px;
+            overflow: hidden;
+            text-decoration: none;
+        }
+
+        .offer-card:hover .offer-img {
+            transform: scale(1.025);
+        }
+
+        .offer-media {
+            position: relative;
+            overflow: hidden;
+            min-height: 210px;
+            border-radius: 14px;
+            background: #030713;
+        }
+
+        .offer-img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 220ms ease;
+        }
+
+        .offer-media picture {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .offer-body {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-width: 0;
+            padding: 2px 0;
+        }
+
+        .offer-title {
+            margin: 0 0 13px;
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 900;
+            line-height: 1.2;
+        }
+
+        .offer-kicker {
+            margin: 0 0 8px;
+            color: var(--gold);
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .offer-bonuses {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 9px;
+            margin-bottom: 10px;
+        }
+
+        .offer-bonus {
+            min-height: 70px;
+            padding: 12px 10px;
+            border-radius: 8px;
+            background: linear-gradient(180deg, #ffd327, #ffbd00);
+            color: #05070a;
+            text-align: center;
+        }
+
+        .offer-bonus strong {
+            display: block;
+            font-size: 24px;
+            line-height: 1;
+            font-weight: 900;
+        }
+
+        .offer-bonus span {
+            display: block;
+            margin-top: 5px;
+            font-size: 11px;
+            line-height: 1.15;
+            font-weight: 800;
+        }
+
+        .promo-code-box {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            gap: 12px;
+            min-height: 64px;
+            padding: 10px 13px;
+            border: 1px dashed rgba(255, 255, 255, 0.26);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .offer-hint {
+            margin: 10px 0 0;
+            color: rgba(255, 255, 255, 0.62);
+            font-size: 12px;
+            font-weight: 800;
+            line-height: 1.35;
+        }
+
+        .promo-code-label {
+            display: block;
+            margin-bottom: 2px;
+            color: rgba(255, 255, 255, 0.52);
+            font-size: 11px;
+            font-weight: 900;
+        }
+
+        .promo-code-value {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 900;
+            letter-spacing: 0.02em;
+        }
+
+        .copy-code-btn {
+            display: grid;
+            place-items: center;
+            width: 40px;
+            height: 40px;
+            border: 0;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.12);
+            color: #dce6f6;
+            cursor: pointer;
+            transition: transform 160ms ease, background 160ms ease, color 160ms ease;
+        }
+
+        .copy-code-btn:hover {
+            background: rgba(77, 244, 45, 0.16);
+            color: var(--green);
+        }
+
+        .copy-code-btn:active {
+            transform: scale(0.94);
+        }
+
+        .copy-code-btn.is-copied {
+            background: rgba(77, 244, 45, 0.2);
+            color: var(--green);
+        }
+
+        .copy-code-btn svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .offer-license {
+            margin: 12px 0 0;
+            color: rgba(255, 255, 255, 0.34);
+            font-size: 12px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .info-card,
+        .promo-banner,
+        .help-panel {
+            border: 1px solid var(--line);
+            background: rgba(17, 23, 34, 0.86);
+            box-shadow: 0 18px 42px rgba(0, 0, 0, 0.28);
+        }
+
+        .btn-bonus:hover {
+            filter: brightness(1.08);
+        }
+
+        .btn-bonus:active,
+        .help-trigger:active {
+            transform: scale(0.98);
+        }
+
+        .btn-bonus::after {
+            content: "";
+            position: absolute;
+            top: -55%;
+            left: -70%;
+            width: 34%;
+            height: 210%;
+            background: rgba(255, 255, 255, 0.44);
+            transform: rotate(28deg);
+            animation: sheen 3.2s infinite;
+        }
+
+        .promo-banner {
+            position: relative;
+            overflow: hidden;
+            border-color: rgba(77, 244, 45, 0.48);
+            border-radius: 20px;
+            padding: 22px 16px;
+            text-align: center;
+            background:
+                linear-gradient(145deg, rgba(77, 244, 45, 0.16), transparent 45%),
+                linear-gradient(180deg, rgba(17, 23, 34, 0.96), rgba(8, 12, 18, 0.98));
+            box-shadow: 0 0 0 1px rgba(77, 244, 45, 0.1), 0 22px 54px rgba(0, 0, 0, 0.34);
+        }
+
+        .promo-banner::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: linear-gradient(90deg, transparent, rgba(77, 244, 45, 0.14), transparent);
+            opacity: 0.85;
+            animation: panel-glow 4s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        .promo-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .registration-banner .promo-label {
+            max-width: 440px;
+            margin-inline: auto;
+            color: #ffffff;
+            font-size: clamp(16px, 3.8vw, 22px);
+            line-height: 1.18;
+            text-shadow: 0 2px 14px rgba(0, 0, 0, 0.44);
+        }
+
+        .registration-banner .promo-amount {
+            margin-top: 6px;
+            font-size: clamp(44px, 10vw, 62px);
+        }
+
+        .registration-banner .btn-bonus {
+            background: linear-gradient(90deg, #6eff3e 0%, #26df67 48%, #00c9ff 100%);
+            color: #041007;
+            box-shadow: 0 18px 38px rgba(77, 244, 45, 0.34), 0 0 28px rgba(0, 201, 255, 0.18);
+        }
+
+        .registration-banner .btn-bonus::before {
+            content: "";
+            position: absolute;
+            inset: 2px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            pointer-events: none;
+        }
+
+        .promo-label {
+            margin-bottom: 8px;
+            color: var(--gold);
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .promo-amount {
+            margin: 0;
+            color: var(--green);
+            font-size: clamp(34px, 9vw, 46px);
+            line-height: 1;
+            font-weight: 900;
+            text-shadow: 0 0 24px rgba(77, 244, 45, 0.42);
+        }
+
+        .promo-sub {
+            display: block;
+            margin: 9px 0 14px;
+            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .timer-wrap {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            margin-bottom: 15px;
+            padding: 7px 13px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.28);
+            color: #d8e1ef;
+            font-size: 12px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .timer-val {
+            color: var(--red);
+        }
+
+        .btn-bonus {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 56px;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 14px;
+            background: linear-gradient(180deg, #72ff4f 0%, #32ca4e 100%);
+            color: #071006;
+            font-size: 17px;
+            font-weight: 900;
+            text-decoration: none;
+            text-transform: uppercase;
+            box-shadow: 0 14px 28px rgba(77, 244, 45, 0.28);
+            transition: transform 180ms ease, filter 180ms ease;
+            animation: claim-pulse 2.1s infinite ease-in-out;
+        }
+
+        .mobile-quick-cta {
+            display: none;
+        }
+
+        .mobile-quick-cta.is-hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(calc(100% + 24px));
+        }
+
+        .mobile-quick-title,
+        .mobile-quick-sub {
+            margin: 0;
+        }
+
+        .mobile-quick-btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 46px;
+            padding: 0 16px;
+            overflow: hidden;
+            border-radius: 13px;
+            background: linear-gradient(90deg, #6eff3e 0%, #23df66 48%, #00c9ff 100%);
+            color: #041007;
+            font-size: 13px;
+            font-weight: 900;
+            text-decoration: none;
+            text-transform: uppercase;
+            box-shadow: 0 12px 28px rgba(77, 244, 45, 0.3), 0 0 22px rgba(0, 201, 255, 0.2);
+        }
+
+        .mobile-quick-btn::after {
+            content: "";
+            position: absolute;
+            top: -60%;
+            left: -70%;
+            width: 34%;
+            height: 220%;
+            background: rgba(255, 255, 255, 0.42);
+            transform: rotate(28deg);
+            animation: sheen 3.2s infinite;
+        }
+
+        .info-card {
+            overflow: hidden;
+            border-radius: 18px;
+            padding: 16px;
+        }
+
+        .info-card.blue {
+            border-color: rgba(74, 163, 255, 0.48);
+        }
+
+        .info-card.gold {
+            border-color: rgba(255, 209, 92, 0.5);
+        }
+
+        .info-title {
+            margin-bottom: 12px;
+            font-size: 13px;
+            font-weight: 900;
+            letter-spacing: 0.04em;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .info-title.blue {
+            color: var(--blue);
+        }
+
+        .info-title.gold {
+            color: var(--gold);
+        }
+
+        .info-img {
+            width: 100%;
+            border-radius: 14px;
+            border: 1px solid var(--line);
+        }
+
+        .info-link {
+            display: block;
+            border-radius: 14px;
+            text-decoration: none;
+        }
+
+        .info-link .info-img {
+            transition: transform 200ms ease, filter 200ms ease;
+        }
+
+        .info-link:hover .info-img {
+            filter: brightness(1.08);
+            transform: scale(1.01);
+        }
+
+        .help-panel {
+            overflow: hidden;
+            border-radius: 18px;
+            background: rgba(17, 23, 34, 0.9);
+        }
+
+        .help-trigger {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            width: 100%;
+            min-height: 58px;
+            padding: 0 16px;
+            border: 0;
+            background: transparent;
+            color: #ffffff;
+            cursor: pointer;
+            font: inherit;
+            font-size: 14px;
+            font-weight: 900;
+            text-align: left;
+            text-transform: uppercase;
+        }
+
+        .help-icon {
+            display: grid;
+            place-items: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(74, 163, 255, 0.16);
+            color: var(--blue);
+            flex: 0 0 auto;
+            transition: transform 180ms ease;
+        }
+
+        .help-trigger[aria-expanded="true"] .help-icon {
+            transform: rotate(180deg);
+        }
+
+        .help-content {
+            display: none;
+            padding: 0 16px 16px;
+            color: var(--text-muted);
+            font-size: 13px;
+            line-height: 1.55;
+        }
+
+        .help-content.is-open {
+            display: block;
+        }
+
+        .help-list {
+            margin: 0;
+            padding-left: 19px;
+        }
+
+        .help-list li + li {
+            margin-top: 6px;
+        }
+
+        .site-footer {
+            margin-top: 22px;
+            padding: 8px 0 2px;
+            color: rgba(255, 255, 255, 0.42);
+            font-size: 12px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .footer-note {
+            max-width: 560px;
+            margin: 12px auto 0;
+            color: rgba(255, 255, 255, 0.46);
+            font-size: 11px;
+            font-weight: 600;
+            line-height: 1.45;
+            text-align: center;
+        }
+
+        .responsible-note {
+            max-width: 560px;
+            margin: 12px auto 0;
+            padding: 10px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.055);
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 11px;
+            font-weight: 800;
+            line-height: 1.45;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            margin-top: 12px;
+        }
+
+        .footer-link {
+            border: 0;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.72);
+            cursor: pointer;
+            font: inherit;
+            font-size: 12px;
+            font-weight: 800;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .footer-link:hover {
+            color: #ffffff;
+        }
+
+        .privacy-page {
+            display: none;
+            width: min(100%, 760px);
+            margin: 0 auto;
+            padding: 24px 16px 56px;
+        }
+
+        .privacy-page.is-open {
+            display: block;
+        }
+
+        .privacy-card {
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: rgba(17, 23, 34, 0.92);
+            box-shadow: 0 22px 58px rgba(0, 0, 0, 0.36);
+            text-align: center;
+        }
+
+        .privacy-head {
+            padding: 26px 18px 22px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .privacy-updated {
+            margin: 0 0 16px;
+            color: #dce6f6;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .privacy-title {
+            margin: 0;
+            color: #ffffff;
+            font-size: clamp(28px, 7vw, 44px);
+            font-weight: 900;
+            line-height: 1.05;
+        }
+
+        .privacy-lead {
+            margin: 14px auto 0;
+            max-width: 560px;
+            color: #d5deeb;
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 1.55;
+        }
+
+        .privacy-body {
+            padding: 24px 18px 18px;
+        }
+
+        .privacy-section + .privacy-section {
+            margin-top: 26px;
+        }
+
+        .privacy-section h3 {
+            margin: 0 0 12px;
+            color: #ffffff;
+            font-size: 21px;
+            font-weight: 900;
+        }
+
+        .privacy-section p {
+            max-width: 620px;
+            margin: 0 auto;
+            color: #d7e1f0;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.65;
+        }
+
+        .privacy-questions {
+            display: grid;
+            gap: 10px;
+            margin-top: 22px;
+            text-align: left;
+        }
+
+        .privacy-question {
+            padding: 14px;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.045);
+        }
+
+        .privacy-question strong {
+            display: block;
+            margin-bottom: 8px;
+            color: #ffffff;
+            font-size: 13px;
+        }
+
+        .privacy-question span {
+            color: #d7e1f0;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        .privacy-home {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 46px;
+            margin-top: 24px;
+            padding: 0 24px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #6eff3e 0%, #26df67 48%, #00c9ff 100%);
+            color: #041007;
+            font-size: 14px;
+            font-weight: 900;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        #tt-shield {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 22px;
+            background:
+                radial-gradient(circle at 50% 8%, rgba(74, 163, 255, 0.12), transparent 20rem),
+                var(--bg-main);
+        }
+
+        .perfect-arrow {
+            position: absolute;
+            top: 16px;
+            right: 22px;
+            width: 78px;
+            height: 78px;
+            color: var(--gold);
+            animation: arrow-bounce 0.86s infinite alternate ease-in-out;
+        }
+
+        .perfect-arrow svg {
+            width: 100%;
+            height: 100%;
+            fill: none;
+            filter: drop-shadow(0 0 15px rgba(255, 209, 92, 0.85));
+        }
+
+        .shield-modal {
+            width: min(100%, 370px);
+            padding: 28px 18px;
+            border: 1px solid rgba(74, 163, 255, 0.45);
+            border-radius: 24px;
+            background: rgba(17, 23, 34, 0.96);
+            text-align: center;
+            box-shadow: 0 24px 70px rgba(0, 0, 0, 0.46);
+        }
+
+        .shield-mark {
+            display: block;
+            margin-bottom: 12px;
+            color: var(--gold);
+            font-size: 42px;
+            font-weight: 900;
+        }
+
+        .shield-title {
+            margin: 0 0 10px;
+            font-size: 22px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .shield-text {
+            margin: 0 0 18px;
+            color: var(--text-muted);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .shield-step {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            padding: 14px;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.045);
+            text-align: left;
+            font-size: 13px;
+            line-height: 1.35;
+        }
+
+        .step-num {
+            display: grid;
+            place-items: center;
+            width: 28px;
+            height: 28px;
+            margin-right: 12px;
+            border-radius: 50%;
+            background: var(--blue);
+            color: #fff;
+            flex: 0 0 auto;
+            font-size: 12px;
+            font-weight: 900;
+        }
+
+        @keyframes sheen {
+            0% {
+                left: -70%;
+            }
+
+            18% {
+                left: 125%;
+            }
+
+            100% {
+                left: 125%;
+            }
+        }
+
+        @keyframes claim-pulse {
+            0%,
+            100% {
+                transform: scale(1);
+                box-shadow: 0 14px 28px rgba(77, 244, 45, 0.24);
+            }
+
+            50% {
+                transform: scale(1.025);
+                box-shadow: 0 18px 34px rgba(77, 244, 45, 0.36);
+            }
+        }
+
+        @keyframes panel-glow {
+            0%,
+            100% {
+                transform: translateX(-80%);
+            }
+
+            50% {
+                transform: translateX(80%);
+            }
+        }
+
+        @keyframes arrow-bounce {
+            from {
+                transform: translate(0, 0);
+            }
+
+            to {
+                transform: translate(12px, -16px);
+            }
+        }
+
+        @media (max-width: 620px) {
+            .app-container {
+                padding-bottom: 120px;
+            }
+
+            .mobile-quick-cta {
+                position: fixed;
+                left: 10px;
+                right: 10px;
+                bottom: 10px;
+                z-index: 80;
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) auto;
+                align-items: center;
+                gap: 10px;
+                opacity: 1;
+                padding: 10px;
+                padding-bottom: calc(10px + env(safe-area-inset-bottom));
+                border: 1px solid rgba(77, 244, 45, 0.38);
+                border-radius: 18px;
+                background: rgba(6, 12, 16, 0.92);
+                box-shadow: 0 16px 40px rgba(0, 0, 0, 0.48), 0 0 24px rgba(77, 244, 45, 0.18);
+                backdrop-filter: blur(14px);
+                transform: translateY(0);
+                transition: opacity 180ms ease, transform 220ms ease;
+            }
+
+            .mobile-quick-title {
+                color: #ffffff;
+                font-size: 16px;
+                font-weight: 900;
+                line-height: 1.1;
+            }
+
+            .mobile-quick-sub {
+                margin-top: 3px;
+                color: rgba(255, 255, 255, 0.66);
+                font-size: 11px;
+                font-weight: 800;
+                line-height: 1.2;
+            }
+
+            .offer-card {
+                grid-template-columns: 1fr;
+                gap: 13px;
+                padding: 11px;
+            }
+
+            .offer-image-link {
+                border-radius: 14px;
+            }
+
+            .offer-media {
+                height: 360px;
+                min-height: 320px;
+            }
+
+            .offer-body {
+                padding: 0;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .header-inner {
+                min-height: 62px;
+                padding-inline: 12px;
+            }
+
+            .brand-logo {
+                width: min(210px, 58vw);
+                height: 40px;
+            }
+
+            .social-links {
+                gap: 9px;
+            }
+
+            .social-link {
+                width: 40px;
+                height: 40px;
+            }
+
+            .social-link svg {
+                width: 30px;
+                height: 30px;
+            }
+
+            .app-container {
+                padding: 16px 12px 42px;
+            }
+
+            .offer-title {
+                margin-bottom: 13px;
+                font-size: 16px;
+            }
+
+            .offer-media {
+                height: 320px;
+                min-height: 300px;
+            }
+
+            .offer-bonuses {
+                gap: 8px;
+            }
+
+            .offer-bonus {
+                min-height: 64px;
+                padding: 11px 8px;
+            }
+
+            .offer-bonus strong {
+                font-size: 21px;
+            }
+
+            .promo-code-value {
+                font-size: 18px;
+            }
+
+            .promo-banner {
+                padding: 20px 13px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="site-shell" id="wrapper-site">
+        <header class="site-header" aria-label="Шапка сайта">
+            <div class="header-inner">
+                <a class="brand-link" href="#" aria-label="MAKWIN affiliate">
+                    <img class="brand-logo" src="makwin-affiliate-logo.png" alt="MAKWIN affiliate">
+                </a>
+                <nav class="social-links" aria-label="Социальные сети">
+                    <a class="social-link" href="https://t.me/+E9L13k0V-QllNzFi" aria-label="Telegram">
+                        <svg viewBox="0 0 48 48" aria-hidden="true">
+                            <circle cx="24" cy="24" r="24" fill="#35aee2"/>
+                            <path d="M34.7 14.8 12.4 23.4c-1.5.6-1.5 1.5-.3 1.9l5.7 1.8 2.2 6.8c.3.9.8 1.1 1.5.5l3.2-3.1 5.9 4.3c1.1.6 1.8.3 2.1-1l3.8-18c.4-1.5-.6-2.2-1.8-1.8Zm-15.9 11.9 13-8.2c.6-.4 1.2-.2.7.3L21.8 28.5l-.4 4.2-2.6-6Z" fill="#fff"/>
+                        </svg>
+                    </a>
+                </nav>
+            </div>
+        </header>
+
+        <main class="app-container" id="home-page">
+            <div class="mobile-quick-cta" aria-label="Быстрая регистрация">
+                <div>
+    <p class="mobile-quick-title">MAK777 +360%</p>
+                    <p class="mobile-quick-sub">Промокод готов к активации</p>
+                </div>
+    <a class="mobile-quick-btn" href="https://wndpr.click/r/LUCKYBEAR/QKDKV7?sub1=inst" onclick="trackBtn('click_mobile_quick_registration')">Регистрация</a>
+            </div>
+            <div class="hero-panel">
+                <section class="offer-card" aria-label="Оффер с промокодом">
+      <a class="offer-image-link" href="https://wndpr.click/r/LUCKYBEAR/QKDKV7?sub1=inst" aria-label="Перейти к офферу" onclick="trackBtn('click_offer_banner')">
+                        <div class="offer-media">
+                            <picture>
+                                <source srcset="lucky-bear-offer-mobile.png" media="(max-width: 620px)">
+                                <img src="lucky-bear-offer.png" class="offer-img" alt="Lucky Bear" width="1024" height="1536">
+                            </picture>
+                        </div>
+                    </a>
+                    <div class="offer-body">
+                        <p class="offer-kicker">Эксклюзивный доступ</p>
+        <h2 class="offer-title">Активируй промокод MAK777 и забери персональные бонусы для новых участников.</h2>
+                        <div class="offer-bonuses" aria-label="Бонусы">
+                            <div class="offer-bonus">
+            <strong>MAK777</strong>
+                                <span>Промокод уже готов</span>
+                            </div>
+                            <div class="offer-bonus">
+                                <strong>до +360%</strong>
+                                <span>Бонусы после входа</span>
+                            </div>
+                        </div>
+                        <div class="promo-code-box">
+                            <div>
+                                <span class="promo-code-label">Твой промокод</span>
+            <span class="promo-code-value" id="promo-code">MAK777</span>
+                            </div>
+                            <button class="copy-code-btn" type="button" id="copy-promo" aria-label="Скопировать промокод" title="Скопировать промокод">
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M8 8.5a2.5 2.5 0 0 1 2.5-2.5h6A2.5 2.5 0 0 1 19 8.5v8a2.5 2.5 0 0 1-2.5 2.5h-6A2.5 2.5 0 0 1 8 16.5v-8Z" fill="none" stroke="currentColor" stroke-width="1.8"/>
+                                    <path d="M5 15.5v-8A2.5 2.5 0 0 1 7.5 5h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <p class="offer-hint">Нажми на баннер или скопируй код — регистрация откроется сразу.</p>
+                        <p class="offer-license">LICENSE: RN 071241</p>
+                    </div>
+                </section>
+
+                <section class="promo-banner registration-banner" aria-label="Регистрация для получения бонусов">
+                    <div class="promo-content">
+                        <div class="promo-label">Заверши регистрацию и активируй промокод</div>
+        <h1 class="promo-amount">MAK777 +360%</h1>
+                        <span class="promo-sub">Персональные бонусы доступны новым участникам ограниченное время</span>
+                        <div class="timer-wrap">Актуально ещё: <span class="timer-val" id="timer">5д 00:00:00</span></div>
+        <a href="https://wndpr.click/r/LUCKYBEAR/QKDKV7?sub1=inst" class="btn-bonus" onclick="trackBtn('click_registration_bonus')">Зарегистрироваться</a>
+                    </div>
+                </section>
+
+                <section class="info-card blue">
+                    <div class="info-title blue">Мгновенная регистрация</div>
+          <a class="info-link" href="https://wndpr.click/r/LUCKYBEAR/QKDKV7?sub1=inst" onclick="trackBtn('click_registration_card')" aria-label="Перейти к регистрации">
+                        <img src="reg-promo.png" class="info-img" alt="Промо регистрации">
+                    </a>
+                </section>
+
+                <section class="info-card gold">
+                    <div class="info-title gold">Мгновенный бонус</div>
+          <a class="info-link" href="https://wndpr.click/r/LUCKYBEAR/QKDKV7?sub1=inst" onclick="trackBtn('click_bonus_card')" aria-label="Перейти к бонусу">
+                        <img src="bonus-promo.png" class="info-img" alt="Промо бонуса">
+                    </a>
+                </section>
+
+                <section class="help-panel">
+                    <button class="help-trigger" type="button" aria-expanded="false" aria-controls="hp" id="help-toggle">
+                        Как начать играть?
+                        <span class="help-icon" aria-hidden="true">⌄</span>
+                    </button>
+                    <div class="help-content" id="hp">
+                        <ol class="help-list">
+                            <li>Получите промокод и нажмите на баннер.</li>
+                            <li>Пройдите быструю регистрацию.</li>
+                            <li>Ваш бонус будет начислен сразу после активации.</li>
+                        </ol>
+                    </div>
+                </section>
+
+                <footer class="site-footer">
+                    © 2026 STA Technology
+                    <p class="footer-note">makwin.space — информационный справочник о доступе к MAKWIN. Лицензионная информация: RN 071241. Материалы размещены в ознакомительных целях; пользователю необходимо соблюдать законодательство своей юрисдикции.</p>
+                    <p class="responsible-note">18+. Азартные игры могут вызывать зависимость. Играйте ответственно. Материалы не являются предложением играть и не гарантируют выигрыш.</p>
+                    <div class="footer-links">
+                        <a class="footer-link" href="#privacy-policy" id="open-privacy">Политика конфиденциальности</a>
+                    </div>
+                </footer>
+            </div>
+        </main>
+
+        <section class="privacy-page" id="privacy-page" aria-label="Политика конфиденциальности">
+            <article class="privacy-card">
+                <div class="privacy-head">
+                    <p class="privacy-updated">Обновлено: <strong>16 июня 2026</strong></p>
+                    <h1 class="privacy-title">Политика конфиденциальности</h1>
+                    <p class="privacy-lead">Коротко о cookies, аналитике и партнёрских переходах. Без юридической простыни на двадцать страниц.</p>
+                </div>
+                <div class="privacy-body">
+                    <section class="privacy-section">
+                        <h3>Какие данные</h3>
+                        <p>Мы не просим регистрацию на этом сайте и не храним пароли. На странице могут фиксироваться технические события: просмотры, клики по кнопкам, переходы по партнёрским ссылкам и базовые данные браузера.</p>
+                    </section>
+                    <section class="privacy-section">
+                        <h3>Cookies</h3>
+                        <p>Сайт может использовать cookies и localStorage для корректной работы таймера, аналитики и улучшения интерфейса. Отключить cookies можно в настройках браузера, но часть функций может работать иначе.</p>
+                    </section>
+                    <section class="privacy-section">
+                        <h3>Партнёрские переходы</h3>
+                        <p>Кнопки регистрации и баннеры ведут на сторонний домен. После перехода действуют правила, условия, политика конфиденциальности и возрастные ограничения соответствующего оператора.</p>
+                    </section>
+                    <section class="privacy-section">
+                        <h3>Изменения</h3>
+                        <p>Мы можем обновлять эту политику при изменении хостинга, аналитики, партнёрских ссылок или структуры сайта. Актуальная дата обновления указана вверху страницы.</p>
+                    </section>
+                    <section class="privacy-section">
+                        <h3>Вопросы</h3>
+                        <div class="privacy-questions">
+                            <div class="privacy-question">
+                                <strong>Продаёте ли вы данные?</strong>
+                                <span>Нет, у сайта нет базы пользователей для продажи или передачи.</span>
+                            </div>
+                            <div class="privacy-question">
+                                <strong>Как удалить данные аналитики?</strong>
+                                <span>Отключите cookies в браузере или используйте блокировщик аналитики. Данные, собранные сторонними сервисами, обрабатываются на их стороне.</span>
+                            </div>
+                        </div>
+                    </section>
+                    <a class="privacy-home" href="#home" id="privacy-home">Главная</a>
+                </div>
+            </article>
+        </section>
+    </div>
+
+    <div id="tt-shield">
+        <div class="perfect-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M21 3L21 11M21 3L13 3M21 3L10 14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="shield-modal">
+            <span class="shield-mark">!</span>
+            <h2 class="shield-title">Открыть в браузере</h2>
+            <p class="shield-text">Для корректной работы игры выполните действия ниже:</p>
+            <div class="shield-step"><div class="step-num">1</div><span>Нажмите на <b>три точки (...)</b> в углу</span></div>
+            <div class="shield-step"><div class="step-num">2</div><span>Выберите <b>«Открыть в браузере»</b></span></div>
+            <div class="shield-step"><div class="step-num">3</div><span>Забирайте свой бонус и играйте</span></div>
+        </div>
+    </div>
+
+    <script defer src="/_vercel/insights/script.js"></script>
+    <script>
+        window.va = window.va || function () {
+            (window.vaq = window.vaq || []).push(arguments);
+        };
+
+        function trackBtn(name) {
+            if (window.va) {
+                window.va("event", { name: name });
+            }
+        }
+    </script>
+
+    <script>
+        function isTikTok() {
+            return /TikTok|musical_ly|BytedanceWebview/i.test(navigator.userAgent);
+        }
+
+        window.addEventListener("DOMContentLoaded", () => {
+            const wrapper = document.getElementById("wrapper-site");
+            const shield = document.getElementById("tt-shield");
+
+            if (isTikTok()) {
+                wrapper.style.display = "none";
+                shield.style.display = "flex";
+                return;
+            }
+
+            const helpToggle = document.getElementById("help-toggle");
+            const helpContent = document.getElementById("hp");
+            const homePage = document.getElementById("home-page");
+            const privacyPage = document.getElementById("privacy-page");
+            const mobileQuickCta = document.querySelector(".mobile-quick-cta");
+            const registrationBanner = document.querySelector(".registration-banner");
+            let registrationBannerVisible = false;
+
+            helpToggle.addEventListener("click", () => {
+                const isOpen = helpToggle.getAttribute("aria-expanded") === "true";
+                helpToggle.setAttribute("aria-expanded", String(!isOpen));
+                helpContent.classList.toggle("is-open", !isOpen);
+            });
+
+            const showPrivacyPage = () => {
+                homePage.style.display = "none";
+                privacyPage.classList.add("is-open");
+                window.scrollTo({ top: 0, behavior: "smooth" });
+                syncMobileQuickCta();
+            };
+
+            const showHomePage = () => {
+                privacyPage.classList.remove("is-open");
+                homePage.style.display = "";
+                window.scrollTo({ top: 0, behavior: "smooth" });
+                syncMobileQuickCta();
+            };
+
+            const syncMobileQuickCta = () => {
+                if (!mobileQuickCta) return;
+
+                const isMobile = window.matchMedia("(max-width: 620px)").matches;
+                const isPrivacyOpen = window.location.hash === "#privacy-policy";
+                mobileQuickCta.classList.toggle("is-hidden", !isMobile || isPrivacyOpen || registrationBannerVisible);
+            };
+
+            const syncPageFromHash = () => {
+                if (window.location.hash === "#privacy-policy") {
+                    showPrivacyPage();
+                } else {
+                    showHomePage();
+                }
+            };
+
+            window.addEventListener("hashchange", syncPageFromHash);
+            syncPageFromHash();
+
+            if (mobileQuickCta && registrationBanner) {
+                const checkRegistrationPosition = () => {
+                    const rect = registrationBanner.getBoundingClientRect();
+                    registrationBannerVisible = rect.top < window.innerHeight * 0.82;
+                    syncMobileQuickCta();
+                };
+
+                window.addEventListener("scroll", checkRegistrationPosition, { passive: true });
+                window.addEventListener("resize", checkRegistrationPosition);
+                window.addEventListener("resize", syncMobileQuickCta);
+                checkRegistrationPosition();
+            }
+
+            const copyPromoButton = document.getElementById("copy-promo");
+            const promoCode = document.getElementById("promo-code");
+
+            copyPromoButton.addEventListener("click", async () => {
+                const code = promoCode.textContent.trim();
+
+                try {
+                    await navigator.clipboard.writeText(code);
+                } catch (error) {
+                    const fallbackInput = document.createElement("textarea");
+                    fallbackInput.value = code;
+                    fallbackInput.setAttribute("readonly", "");
+                    fallbackInput.style.position = "fixed";
+                    fallbackInput.style.opacity = "0";
+                    document.body.appendChild(fallbackInput);
+                    fallbackInput.select();
+                    document.execCommand("copy");
+                    fallbackInput.remove();
+                }
+
+                copyPromoButton.classList.add("is-copied");
+                copyPromoButton.setAttribute("title", "Промокод скопирован");
+                setTimeout(() => {
+                    copyPromoButton.classList.remove("is-copied");
+                    copyPromoButton.setAttribute("title", "Скопировать промокод");
+                }, 1400);
+            });
+
+            const timerEl = document.getElementById("timer");
+            const timerStorageKey = "makwinRegistrationOfferEndsAt";
+            const fiveDays = 5 * 24 * 60 * 60 * 1000;
+            let offerEndsAt = Number(localStorage.getItem(timerStorageKey));
+
+            if (!offerEndsAt || offerEndsAt <= Date.now()) {
+                offerEndsAt = Date.now() + fiveDays;
+                localStorage.setItem(timerStorageKey, String(offerEndsAt));
+            }
+
+            const updateTimer = () => {
+                const timeLeft = Math.max(0, offerEndsAt - Date.now());
+                const totalSeconds = Math.floor(timeLeft / 1000);
+                const days = Math.floor(totalSeconds / 86400);
+                const hours = Math.floor((totalSeconds % 86400) / 3600);
+                const minutes = Math.floor((totalSeconds % 3600) / 60);
+                const seconds = totalSeconds % 60;
+
+                if (timerEl) {
+                    timerEl.textContent = `${days}д ${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+                }
+            };
+
+            updateTimer();
+            setInterval(updateTimer, 1000);
+
+        });
+    </script>
+</body>
+</html>
