@@ -807,94 +807,189 @@
             text-decoration: none;
             text-transform: uppercase;
         }
-
-        #tt-shield {
+        #browser-open-tip {
             position: fixed;
             inset: 0;
             z-index: 99999;
             display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 22px;
-            background:
-                radial-gradient(circle at 50% 8%, rgba(74, 163, 255, 0.12), transparent 20rem),
-                var(--bg-main);
+            align-items: flex-start;
+            justify-content: flex-end;
+            padding: calc(12px + env(safe-area-inset-top)) 10px 0;
+            background: linear-gradient(180deg, rgba(3, 10, 24, 0.78), rgba(3, 10, 24, 0.22) 58%, rgba(3, 10, 24, 0));
+            pointer-events: none;
         }
 
-        .perfect-arrow {
+        #browser-open-tip.is-visible {
+            display: flex;
+            pointer-events: auto;
+        }
+
+        .browser-tip-card {
+            position: relative;
+            width: min(100%, 372px);
+            margin-top: 6px;
+            padding: 18px;
+            border: 1px solid rgba(0, 201, 255, 0.52);
+            border-radius: 22px;
+            background:
+                radial-gradient(circle at 82% 0%, rgba(0, 201, 255, 0.28), transparent 9rem),
+                linear-gradient(145deg, rgba(9, 21, 42, 0.98), rgba(4, 9, 18, 0.98));
+            color: #ffffff;
+            box-shadow: 0 24px 72px rgba(0, 0, 0, 0.52), 0 0 28px rgba(0, 201, 255, 0.2);
+            animation: tip-slide-in 260ms ease both;
+        }
+
+        .browser-tip-arrow {
             position: absolute;
-            top: 16px;
-            right: 22px;
-            width: 78px;
-            height: 78px;
-            color: var(--gold);
+            top: -8px;
+            right: 7px;
+            width: 68px;
+            height: 68px;
+            color: #00c9ff;
+            pointer-events: none;
             animation: arrow-bounce 0.86s infinite alternate ease-in-out;
         }
 
-        .perfect-arrow svg {
+        .browser-tip-arrow svg {
             width: 100%;
             height: 100%;
             fill: none;
-            filter: drop-shadow(0 0 15px rgba(255, 209, 92, 0.85));
+            filter: drop-shadow(0 0 16px rgba(0, 201, 255, 0.88));
         }
 
-        .shield-modal {
-            width: min(100%, 370px);
-            padding: 28px 18px;
-            border: 1px solid rgba(74, 163, 255, 0.45);
-            border-radius: 24px;
-            background: rgba(17, 23, 34, 0.96);
-            text-align: center;
-            box-shadow: 0 24px 70px rgba(0, 0, 0, 0.46);
-        }
-
-        .shield-mark {
-            display: block;
-            margin-bottom: 12px;
-            color: var(--gold);
-            font-size: 42px;
-            font-weight: 900;
-        }
-
-        .shield-title {
-            margin: 0 0 10px;
+        .browser-tip-close {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: grid;
+            place-items: center;
+            width: 34px;
+            height: 34px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
             font-size: 22px;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .browser-tip-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            max-width: calc(100% - 44px);
+            margin-bottom: 12px;
+            padding: 7px 12px;
+            border-radius: 999px;
+            background: rgba(0, 201, 255, 0.14);
+            color: #8ee8ff;
+            font-size: 12px;
             font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .browser-tip-badge span:first-child {
+            display: grid;
+            place-items: center;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #35d6ff;
+            color: #02111a;
+            font-size: 13px;
+        }
+
+        .browser-tip-title {
+            margin: 0 0 8px;
+            padding-right: 34px;
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: 900;
+            line-height: 1.05;
             text-transform: uppercase;
         }
 
-        .shield-text {
-            margin: 0 0 18px;
-            color: var(--text-muted);
-            font-size: 13px;
-            line-height: 1.5;
+        .browser-tip-text {
+            margin: 0 0 14px;
+            color: rgba(230, 242, 255, 0.82);
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 1.45;
         }
 
-        .shield-step {
+        .browser-tip-steps {
+            display: grid;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .browser-tip-step {
             display: flex;
             align-items: center;
-            margin-top: 10px;
-            padding: 14px;
-            border: 1px solid var(--line);
-            border-radius: 16px;
-            background: rgba(255, 255, 255, 0.045);
-            text-align: left;
+            gap: 10px;
+            padding: 11px 12px;
+            border: 1px solid rgba(74, 163, 255, 0.22);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.055);
+            color: #ffffff;
             font-size: 13px;
+            font-weight: 800;
             line-height: 1.35;
         }
 
-        .step-num {
+        .browser-tip-step strong {
+            color: #8ee8ff;
+        }
+
+        .browser-tip-num {
             display: grid;
             place-items: center;
-            width: 28px;
-            height: 28px;
-            margin-right: 12px;
+            width: 26px;
+            height: 26px;
             border-radius: 50%;
-            background: var(--blue);
-            color: #fff;
+            background: linear-gradient(180deg, #35d6ff, #1674ff);
+            color: #ffffff;
             flex: 0 0 auto;
             font-size: 12px;
             font-weight: 900;
+        }
+
+        .browser-tip-actions {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 9px;
+        }
+        .browser-tip-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 46px;
+            border-radius: 14px;
+            font-size: 13px;
+            font-weight: 900;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .browser-tip-secondary {
+            padding: 0 16px;
+            border: 1px solid rgba(0, 201, 255, 0.32);
+            background: rgba(0, 201, 255, 0.12);
+            color: #e7f7ff;
+        }
+
+        @keyframes tip-slide-in {
+            from {
+                opacity: 0;
+                transform: translateY(-12px) scale(0.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         @keyframes sheen {
@@ -957,7 +1052,7 @@
                 bottom: 10px;
                 z-index: 80;
                 display: grid;
-                grid-template-columns: minmax(0, 1fr) auto;
+                grid-template-columns: 1fr;
                 align-items: center;
                 gap: 10px;
                 opacity: 1;
@@ -1087,7 +1182,7 @@
                     <img class="brand-logo" src="makwin-affiliate-logo.png" alt="MAKWIN affiliate">
                 </a>
                 <nav class="social-links" aria-label="Социальные сети">
-                    <a class="social-link" href="https://t.me/+E9L13k0V-QllNzFi" aria-label="Telegram">
+                    <a class="social-link" href="https://t.me/+lkLm263QJmNmNzQ6" aria-label="Telegram">
                         <svg viewBox="0 0 48 48" aria-hidden="true">
                             <circle cx="24" cy="24" r="24" fill="#35aee2"/>
                             <path d="M34.7 14.8 12.4 23.4c-1.5.6-1.5 1.5-.3 1.9l5.7 1.8 2.2 6.8c.3.9.8 1.1 1.5.5l3.2-3.1 5.9 4.3c1.1.6 1.8.3 2.1-1l3.8-18c.4-1.5-.6-2.2-1.8-1.8Zm-15.9 11.9 13-8.2c.6-.4 1.2-.2.7.3L21.8 28.5l-.4 4.2-2.6-6Z" fill="#fff"/>
@@ -1131,9 +1226,9 @@
                         <div class="promo-code-box">
                             <div>
                                 <span class="promo-code-label">Твой промокод</span>
-            <span class="promo-code-value" id="promo-code">GEL777</span>
+            <span class="promo-code-value">GEL777</span>
                             </div>
-                            <button class="copy-code-btn" type="button" id="copy-promo" aria-label="Скопировать промокод" title="Скопировать промокод">
+                            <button class="copy-code-btn" type="button" aria-label="Скопировать промокод" title="Скопировать промокод">
                                 <svg viewBox="0 0 24 24" aria-hidden="true">
                                     <path d="M8 8.5a2.5 2.5 0 0 1 2.5-2.5h6A2.5 2.5 0 0 1 19 8.5v8a2.5 2.5 0 0 1-2.5 2.5h-6A2.5 2.5 0 0 1 8 16.5v-8Z" fill="none" stroke="currentColor" stroke-width="1.8"/>
                                     <path d="M5 15.5v-8A2.5 2.5 0 0 1 7.5 5h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
@@ -1145,7 +1240,7 @@
                     </div>
                 </section>
 
-                <section class="promo-banner registration-banner" aria-label="Регистрация для получения бонусов">
+<section class="promo-banner registration-banner" aria-label="Регистрация для получения бонусов">
                     <div class="promo-content">
                         <div class="promo-label">Заверши регистрацию и активируй промокод</div>
         <h1 class="promo-amount">GEL777 +360%</h1>
@@ -1236,21 +1331,24 @@
             </article>
         </section>
     </div>
-
-    <div id="tt-shield">
-        <div class="perfect-arrow" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M21 3L21 11M21 3L13 3M21 3L10 14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <div class="shield-modal">
-            <span class="shield-mark">!</span>
-            <h2 class="shield-title">Открыть в браузере</h2>
-            <p class="shield-text">Для корректной работы игры выполните действия ниже:</p>
-            <div class="shield-step"><div class="step-num">1</div><span>Нажмите на <b>три точки (...)</b> в углу</span></div>
-            <div class="shield-step"><div class="step-num">2</div><span>Выберите <b>«Открыть в браузере»</b></span></div>
-            <div class="shield-step"><div class="step-num">3</div><span>Забирайте свой бонус и играйте</span></div>
+    <div id="browser-open-tip" role="dialog" aria-label="Открыть сайт в другом браузере" aria-live="polite">
+        <div class="browser-tip-card">
+            <button class="browser-tip-close" type="button" data-browser-tip-close aria-label="Закрыть подсказку">×</button>
+            <div class="browser-tip-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M21 3L21 11M21 3L13 3M21 3L10 14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="browser-tip-badge"><span>✓</span><span>ВАЖНАЯ ИНФОРМАЦИЯ</span></div>
+            <h2 class="browser-tip-title">Открой в браузере</h2>
+            <p class="browser-tip-text">Если сайт открылся внутри Instagram, нажми на три точки справа сверху и выбери <b>«Открыть в браузере»</b>. Иначе страница может работать некорректно.</p>
+            <div class="browser-tip-steps">
+                <div class="browser-tip-step"><span class="browser-tip-num">1</span><span>Нажми <strong>•••</strong> в правом верхнем углу</span></div>
+                <div class="browser-tip-step"><span class="browser-tip-num">2</span><span>Выбери <strong>«Открыть в браузере»</strong></span></div>
+            </div>
+            <div class="browser-tip-actions">
+                <button class="browser-tip-secondary" type="button" data-browser-tip-close>Понятно</button>
+            </div>
         </div>
     </div>
-
     <script defer src="/_vercel/insights/script.js"></script>
     <script>
         window.va = window.va || function () {
@@ -1265,19 +1363,31 @@
     </script>
 
     <script>
-        function isTikTok() {
-            return /TikTok|musical_ly|BytedanceWebview/i.test(navigator.userAgent);
+        function shouldShowBrowserTip() {
+            return !sessionStorage.getItem("browserOpenTipClosed");
         }
 
         window.addEventListener("DOMContentLoaded", () => {
-            const wrapper = document.getElementById("wrapper-site");
-            const shield = document.getElementById("tt-shield");
+            const browserOpenTip = document.getElementById("browser-open-tip");
 
-            if (isTikTok()) {
-                wrapper.style.display = "none";
-                shield.style.display = "flex";
-                return;
+            const hideBrowserTip = () => {
+                if (!browserOpenTip) return;
+                browserOpenTip.classList.remove("is-visible");
+                sessionStorage.setItem("browserOpenTipClosed", "1");
+            };
+
+            if (browserOpenTip && shouldShowBrowserTip()) {
+                requestAnimationFrame(() => browserOpenTip.classList.add("is-visible"));
             }
+
+            document.querySelectorAll("[data-browser-tip-close]").forEach((button) => {
+                button.addEventListener("click", hideBrowserTip);
+            });
+
+            window.addEventListener("resize", () => {
+                if (!browserOpenTip) return;
+                browserOpenTip.classList.toggle("is-visible", shouldShowBrowserTip());
+            });
 
             const helpToggle = document.getElementById("help-toggle");
             const helpContent = document.getElementById("hp");
@@ -1338,33 +1448,39 @@
                 window.addEventListener("resize", syncMobileQuickCta);
                 checkRegistrationPosition();
             }
+            const copyPromoButtons = document.querySelectorAll(".copy-code-btn");
 
-            const copyPromoButton = document.getElementById("copy-promo");
-            const promoCode = document.getElementById("promo-code");
+            copyPromoButtons.forEach((copyPromoButton) => {
+                copyPromoButton.addEventListener("click", async () => {
+                    const promoBox = copyPromoButton.closest(".promo-code-box");
+                    const promoCode = promoBox?.querySelector(".promo-code-value");
+                    const code = promoCode?.textContent.trim();
 
-            copyPromoButton.addEventListener("click", async () => {
-                const code = promoCode.textContent.trim();
+                    if (!code) {
+                        return;
+                    }
 
-                try {
-                    await navigator.clipboard.writeText(code);
-                } catch (error) {
-                    const fallbackInput = document.createElement("textarea");
-                    fallbackInput.value = code;
-                    fallbackInput.setAttribute("readonly", "");
-                    fallbackInput.style.position = "fixed";
-                    fallbackInput.style.opacity = "0";
-                    document.body.appendChild(fallbackInput);
-                    fallbackInput.select();
-                    document.execCommand("copy");
-                    fallbackInput.remove();
-                }
+                    try {
+                        await navigator.clipboard.writeText(code);
+                    } catch (error) {
+                        const fallbackInput = document.createElement("textarea");
+                        fallbackInput.value = code;
+                        fallbackInput.setAttribute("readonly", "");
+                        fallbackInput.style.position = "fixed";
+                        fallbackInput.style.opacity = "0";
+                        document.body.appendChild(fallbackInput);
+                        fallbackInput.select();
+                        document.execCommand("copy");
+                        fallbackInput.remove();
+                    }
 
-                copyPromoButton.classList.add("is-copied");
-                copyPromoButton.setAttribute("title", "Промокод скопирован");
-                setTimeout(() => {
-                    copyPromoButton.classList.remove("is-copied");
-                    copyPromoButton.setAttribute("title", "Скопировать промокод");
-                }, 1400);
+                    copyPromoButton.classList.add("is-copied");
+                    copyPromoButton.setAttribute("title", "Промокод скопирован");
+                    setTimeout(() => {
+                        copyPromoButton.classList.remove("is-copied");
+                        copyPromoButton.setAttribute("title", "Скопировать промокод");
+                    }, 1400);
+                });
             });
 
             const timerEl = document.getElementById("timer");
@@ -1397,3 +1513,11 @@
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
